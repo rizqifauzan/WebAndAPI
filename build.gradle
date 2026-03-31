@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+    implementation 'io.cucumber:cucumber-java:7.34.3'
+
+    // Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
+    testImplementation 'io.cucumber:cucumber-junit:7.34.3'
+
+    // Source: https://mvnrepository.com/artifact/junit/junit
+    testImplementation 'junit:junit:4.13.2'
+
+    // Source: https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    testImplementation 'io.rest-assured:rest-assured:6.0.0'
+
+
+}
+
+test {
+    useJUnit()
+}
+
+task webTest(type: Test) {
+    description = 'Runs the web tests.'
+    group = 'verification'
+
+    useJUnit()
+    include '**/WebTestRunner.class'
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task apiTest(type: Test) {
+    description = 'Runs the web tests.'
+    group = 'verification'
+
+    useJUnit()
+    include '**/APITestRunner.class'
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
